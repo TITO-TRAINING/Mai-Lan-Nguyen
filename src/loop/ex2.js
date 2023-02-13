@@ -10,10 +10,12 @@ a significant percentage of programmer candidates. So if you solved it, your
 labor market value just went up. */
 
 for (var num = 1; num < 101; num++) {
-    let logResult = "";
-    if (num % 3 === 0)
-    logResult += "Fizz";
-    if (num % 5 === 0)
-    logResult += "Buzz";
-    console.log(logResult || num);
+
+  let logResult = "";
+
+  if (num % 3 === 0) logResult += "Fizz";
+
+  if (num % 5 === 0) logResult += "Buzz";
+
+  console.log(logResult || num);
 }
