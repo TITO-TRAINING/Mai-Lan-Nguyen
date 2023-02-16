@@ -20,6 +20,6 @@ function isEven(n) {
     else
       return isEven(n - 2);
   }
-console.log(isEven(50));
-console.log(isEven(75));
-console.log(isEven(-1));
+console.log(isEven(50));//true
+console.log(isEven(75));//false
+console.log(isEven(-1));//false
