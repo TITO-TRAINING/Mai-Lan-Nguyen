@@ -189,7 +189,6 @@ function skipSpace(string) {
 
   // const regex = /#.*\n/g;
   // nstring = nstring.replace(regex,'');
-
   // return nstring;
 
   // Their solution
