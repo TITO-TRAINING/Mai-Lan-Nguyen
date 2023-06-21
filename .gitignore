@@ -1,0 +1,11 @@
+# dependencies
+/node_modules
+/.cache
+
+# production
+/dist
+
+# misc
+yarn.lock
+.DS_Store
+pnpm-lock.yaml
