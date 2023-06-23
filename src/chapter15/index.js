@@ -10,6 +10,21 @@ function inflateBalloon() {
     window.removeEventListener('keydown', handleKeydown);
   }
 }
+function deflateBalloon() {
+  let fontSize = parseInt(getComputedStyle(balloon).fontSize);
+  fontSize *= 0.9;
+  balloon.style.fontSize = fontSize + 'px';
+}
+
+function handleKeydown(event) {
+  if (event.key === 'ArrowUp') {
+    inflateBalloon();
+  } else if (event.key === 'ArrowDown') {
+    deflateBalloon();
+  }
+}
+
+window.addEventListener('keydown', handleKeydown);
 
 /* Mouse Trail
 In JavaScript’s early days, which was the high time of gaudy home pages with
@@ -26,22 +41,6 @@ There are various possible approaches here. You can make your solution as simple
 to keep a fixed number of trail elements and cycle through them, moving
 the next one to the mouse’s current position every time a "mousemove" event
 occurs. */
-
-function deflateBalloon() {
-  let fontSize = parseInt(getComputedStyle(balloon).fontSize);
-  fontSize *= 0.9;
-  balloon.style.fontSize = fontSize + 'px';
-}
-
-function handleKeydown(event) {
-  if (event.key === 'ArrowUp') {
-    inflateBalloon();
-  } else if (event.key === 'ArrowDown') {
-    deflateBalloon();
-  }
-}
-
-window.addEventListener('keydown', handleKeydown);
 
 let dots = [];
 for (let i = 0; i < 12; i++) {
