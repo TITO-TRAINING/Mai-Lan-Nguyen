@@ -1,0 +1,38 @@
+table {
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+td.number {
+  text-align: right;
+}
+
+#cat {
+  position: absolute;
+}
+#hat {
+  position: absolute;
+}
+.balloon {
+  font-size: 20px;
+}
+
+.trail {
+  /* className for the trail elements */
+  position: absolute;
+  height: 6px;
+  width: 6px;
+  border-radius: 3px;
+  background: teal;
+}
+body {
+  height: 300px;
+}

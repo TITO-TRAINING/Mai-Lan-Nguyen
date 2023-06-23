@@ -1,4 +1,6 @@
-document.querySelector("#app").innerHTML = `
+import './style.css';
+
+document.querySelector('#app').innerHTML = `
   <div>
     <h1>Vite + JavaScript</h1>
     <div class="card">
@@ -9,3 +11,5 @@ document.querySelector("#app").innerHTML = `
     </p>
   </div>
 `;
+
+export * from './chapter15';
