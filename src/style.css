@@ -1,4 +1,4 @@
-table {
+/* table {
   border-collapse: collapse;
 }
 th,
@@ -26,7 +26,6 @@ td.number {
 }
 
 .trail {
-  /* className for the trail elements */
   position: absolute;
   height: 6px;
   width: 6px;
@@ -35,4 +34,16 @@ td.number {
 }
 body {
   height: 300px;
+} */
+
+body {
+  background: #1d2630;
+}
+
+* {
+  color: #fff;
+}
+
+#Update {
+  display: none;
 }
