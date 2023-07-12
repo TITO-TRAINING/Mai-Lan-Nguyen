@@ -15,3 +15,7 @@ Mentee: Lan Nguyen Mai
 3. Run `pnpm install` to get all packages
 
 4. After that, run `pnpm dev` to start project
+
+# Description:
+
+![Alt text](image.png)

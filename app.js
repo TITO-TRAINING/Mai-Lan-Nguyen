@@ -1,35 +1,29 @@
-// Validate form field
-function validateField(value, fieldName) {
-  if (value.trim() === '') {
-    alert(fieldName + ' is required');
-    return false;
-  }
-  return true;
-}
-
-// Validate form
-function validateForm() {
+function ValidateForm() {
   var name = document.getElementById('name').value;
   var age = document.getElementById('age').value;
   var address = document.getElementById('address').value;
   var email = document.getElementById('email').value;
 
-  if (!validateField(name, 'Name')) {
+  if (name == '') {
+    alert('Name is requires');
     return false;
   }
 
-  if (!validateField(age, 'Age')) {
+  if (age == '') {
+    alert('Age is required');
     return false;
   } else if (age < 1) {
     alert('Age must not be zero or less than zero');
     return false;
   }
 
-  if (!validateField(address, 'Address')) {
+  if (address == '') {
+    alert('Address is required');
     return false;
   }
 
-  if (!validateField(email, 'Email')) {
+  if (email == '') {
+    alert('Email is required');
     return false;
   } else if (!email.includes('@')) {
     alert('Invalid email address');
@@ -39,9 +33,13 @@ function validateForm() {
   return true;
 }
 
-// Show data in table
 function showData() {
-  var peopleList = JSON.parse(localStorage.getItem('peopleList')) || [];
+  var peopleList;
+  if (localStorage.getItem('peopleList') == null) {
+    peopleList = [];
+  } else {
+    peopleList = JSON.parse(localStorage.getItem('peopleList'));
+  }
 
   var html = '';
 
@@ -52,31 +50,35 @@ function showData() {
     html += '<td>' + element.address + '</td>';
     html += '<td>' + element.email + '</td>';
     html +=
-      '<td><button data-index="' +
+      '<td><button onclick="deleteData(' +
       index +
-      '" class="btn btn-danger">Delete</button><button data-index="' +
+      ')" class="btn btn-danger">Delete</button><button onclick="updateData(' +
       index +
-      '" class= "btn btn-warning m-2">Edit</button></td>';
+      ')" class= "btn btn-warning m-2">Edit</button></td>';
     html += '</tr>';
   });
 
   document.querySelector('#crudTable tbody').innerHTML = html;
 }
 
-// Load data when document or page loaded
-document.addEventListener('DOMContentLoaded', function () {
-  showData();
-});
+//Load all data when document or page loaded
+document.onload = showData();
 
-// Add data
-document.getElementById('Submit').addEventListener('click', function () {
-  if (validateForm()) {
+//
+function AddData() {
+  //if form is  validat
+  if (ValidateForm() == true) {
     var name = document.getElementById('name').value;
     var age = document.getElementById('age').value;
     var address = document.getElementById('address').value;
     var email = document.getElementById('email').value;
 
-    var peopleList = JSON.parse(localStorage.getItem('peopleList')) || [];
+    var peopleList;
+    if (localStorage.getItem('peopleList') == null) {
+      peopleList = [];
+    } else {
+      peopleList = JSON.parse(localStorage.getItem('peopleList'));
+    }
 
     peopleList.push({
       name: name,
@@ -87,62 +89,64 @@ document.getElementById('Submit').addEventListener('click', function () {
 
     localStorage.setItem('peopleList', JSON.stringify(peopleList));
     showData();
-
     document.getElementById('name').value = '';
     document.getElementById('age').value = '';
     document.getElementById('address').value = '';
     document.getElementById('email').value = '';
   }
-});
+}
 
-// Delete data
-document
-  .querySelector('#crudTable')
-  .addEventListener('click', function (event) {
-    if (event.target.classList.contains('btn-danger')) {
-      var index = event.target.dataset.index;
-      var peopleList = JSON.parse(localStorage.getItem('peopleList')) || [];
+//delete
 
-      peopleList.splice(index, 1);
+function deleteData(index) {
+  var peopleList;
+  if (localStorage.getItem('peopleList') == null) {
+    peopleList = [];
+  } else {
+    peopleList = JSON.parse(localStorage.getItem('peopleList'));
+  }
+
+  peopleList.splice(index, 1);
+  localStorage.setItem('peopleList', JSON.stringify(peopleList));
+  showData();
+}
+
+//update
+
+function updateData(index) {
+  document.getElementById('Submit').style.display = 'none';
+  document.getElementById('Update').style.display = 'block';
+
+  var peopleList;
+  if (localStorage.getItem('peopleList') == null) {
+    peopleList = [];
+  } else {
+    peopleList = JSON.parse(localStorage.getItem('peopleList'));
+  }
+
+  document.getElementById('name').value = peopleList[index].name;
+  document.getElementById('age').value = peopleList[index].age;
+  document.getElementById('address').value = peopleList[index].address;
+  document.getElementById('email').value = peopleList[index].email;
+
+  document.querySelector('#Update').onclick = function () {
+    if (ValidateForm() == true) {
+      peopleList[index].name = document.getElementById('name').value;
+      peopleList[index].age = document.getElementById('age').value;
+      peopleList[index].address = document.getElementById('address').value;
+      peopleList[index].email = document.getElementById('email').value;
+
       localStorage.setItem('peopleList', JSON.stringify(peopleList));
+
       showData();
+
+      document.getElementById('name').value = '';
+      document.getElementById('age').value = '';
+      document.getElementById('address').value = '';
+      document.getElementById('email').value = '';
     }
-  });
 
-// Update data
-document
-  .querySelector('#crudTable')
-  .addEventListener('click', function (event) {
-    if (event.target.classList.contains('btn-warning')) {
-      var index = event.target.dataset.index;
-      var peopleList = JSON.parse(localStorage.getItem('peopleList')) || [];
-
-      document.getElementById('Submit').style.display = 'none';
-      document.getElementById('Update').style.display = 'block';
-
-      document.getElementById('name').value = peopleList[index].name;
-      document.getElementById('age').value = peopleList[index].age;
-      document.getElementById('address').value = peopleList[index].address;
-      document.getElementById('email').value = peopleList[index].email;
-
-      document.querySelector('#Update').onclick = function () {
-        if (validateForm()) {
-          peopleList[index].name = document.getElementById('name').value;
-          peopleList[index].age = document.getElementById('age').value;
-          peopleList[index].address = document.getElementById('address').value;
-          peopleList[index].email = document.getElementById('email').value;
-
-          localStorage.setItem('peopleList', JSON.stringify(peopleList));
-          showData();
-
-          document.getElementById('name').value = '';
-          document.getElementById('age').value = '';
-          document.getElementById('address').value = '';
-          document.getElementById('email').value = '';
-
-          document.getElementById('Submit').style.display = 'block';
-          document.getElementById('Update').style.display = 'none';
-        }
-      };
-    }
-  });
+    document.getElementById('Submit').style.display = 'block';
+    document.getElementById('Update').style.display = 'none';
+  };
+}
